@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+.vscode/
+.idea/
+.ipynb_checkpoints/
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
