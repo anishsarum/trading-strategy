@@ -4,7 +4,9 @@ This repository contains the trading strategy developed for participation in the
 
 ## Overview
 
-This project implements a trading strategy that I am using for the **EUTIC Trading Competition**. The strategy combines various technical and sentiment indicators to identify promising stocks, optimise entry and exit points, and manage risk.
+This project implements a trading strategy for the **EUTIC Trading Competition**. The strategy combines various technical indicators and simulated sentiment analysis to identify promising stocks, optimize entry and exit points, and manage risk. 
+
+While the strategy is functional with simulated sentiment, real-time data, dynamic stock selection, and advanced risk management features will be integrated in the future.
 
 ## Getting Started
 
@@ -41,17 +43,17 @@ To get started with the project, follow these steps:
 The trading strategy uses the following indicators to make trading decisions:
 - **Moving Averages (SMA)**: To identify trends and confirm buy/sell signals.
 - **MACD (Moving Average Convergence Divergence)**: To measure momentum and detect trend changes.
-- **Sentiment Analysis**: To gauge market sentiment using simulated sentiment scores (to be replaced with more advanced techniques).
+- **Sentiment Analysis**: Currently simulated using random sentiment scores (to be replaced with actual sentiment analysis based on news or social media).
 - **Capital Allocation**: Based on the potential of each stock, with higher potential stocks receiving larger portions of capital.
 
 ### Strategy Goals:
 - **Trend Identification**: Using moving averages and MACD to spot trends.
 - **Entry and Exit Optimization**: Determining optimal times to buy and sell based on both technical indicators and sentiment.
-- **Risk Management**: Incorporating stop-loss and take-profit levels to protect the portfolio from significant losses.
+- **Risk Management**: Future plans to incorporate stop-loss and take-profit levels to protect the portfolio from significant losses.
 
 ## Contributing
 
-This project is part of a competition entry and is not open for contributions. For discussions or inquiries about the strategy, please contact me directly.
+This project is part of a competition entry and is not open for contributions at this time. For discussions or inquiries about the strategy, please contact me directly.
 
 ## License
 

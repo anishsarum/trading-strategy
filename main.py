@@ -1,6 +1,6 @@
 # main.py
 
-from strategy import filter_stocks
+from strategy.core_strategy import filter_stocks
 
 
 def main():

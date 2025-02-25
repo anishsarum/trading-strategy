@@ -1,8 +1,8 @@
 import pandas as pd
 
-from data_fetcher import fetch_stock_data
-from sentiment_analysis import analyze_sentiment
-from technical_analysis import calculate_technical_indicators
+from strategy.data_fetcher import fetch_stock_data
+from strategy.sentiment_analysis import analyze_sentiment
+from strategy.technical_analysis import calculate_technical_indicators
 
 
 def filter_stocks(stocks, period="1y"):
