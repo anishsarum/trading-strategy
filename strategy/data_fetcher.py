@@ -1,24 +1,39 @@
-import yfinance as yf
+from ib_insync import IB, Crypto, Stock, util
 
 
-def fetch_stock_data(stock, period="1y", interval="1d"):
-    """
-    Fetch historical stock data from Yahoo Finance.
+def get_ib_connection(host="127.0.0.1", port=7497, client_id=1):
+    ib = IB()
+    ib.connect(host, port, clientId=client_id)
+    return ib
 
-    Parameters:
-    - stock (str): The stock ticker symbol (e.g., 'AAPL').
-    - period (str): The data period (e.g., '1d', '1mo', '1y', '5y'). Default is '1y'.
-    - interval (str): The data interval (e.g., '1m', '5m', '1d', '1wk'). Default is '1d'.
 
-    Returns:
-    - pandas.DataFrame: Stock data with columns like Open, High, Low, Close, Volume.
-    """
+def build_contract(symbol, is_crypto=False):
+    if is_crypto:
+        return Crypto(symbol, "PAXOS", "USD")
+    return Stock(symbol, "SMART", "USD")
+
+
+def fetch_stock_data(symbol, duration="1 Y", bar_size="1 day", is_crypto=False):
+    ib = get_ib_connection()
     try:
-        # Fetch data using yfinance's download function
-        data = yf.download(stock, period=period, interval=interval)
+        contract = build_contract(symbol, is_crypto=is_crypto)
+        ib.qualifyContracts(contract)
 
-        # Return the data
-        return data
+        bars = ib.reqHistoricalData(
+            contract,
+            endDateTime="",
+            durationStr=duration,
+            barSizeSetting=bar_size,
+            whatToShow="AGGTRADES" if is_crypto else "TRADES",
+            useRTH=True,
+            formatDate=1,
+        )
+
+        return util.df(bars)
+
     except Exception as e:
-        print(f"Error fetching data for {stock}: {e}")
+        print(f"Error fetching data for {symbol}: {e}")
         return None
+
+    finally:
+        ib.disconnect()

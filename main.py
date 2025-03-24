@@ -4,7 +4,8 @@ from strategy.core_strategy import filter_stocks
 
 
 def main():
-    stocks = ["AAPL", "GOOGL", "AMZN", "MSFT", "TSLA"]  # Example stock tickers
+    # You can swap or expand this list as needed
+    stocks = ["BTC"]  # Supports crypto through fetch_stock_data
     filtered_stocks = filter_stocks(stocks)
 
     if not filtered_stocks.empty:

@@ -1,6 +1,3 @@
-import random
-
-
 def analyze_sentiment(stock):
     """
     Simulate sentiment analysis for a given stock.
@@ -12,7 +9,7 @@ def analyze_sentiment(stock):
     - float: Sentiment score between -1 (negative) and 1 (positive).
     """
     # For now, simulate sentiment analysis with random values
-    sentiment_score = random.uniform(-1, 1)
+    sentiment_score = 1  # random.uniform(-1, 1)
 
     # Print for debugging purposes
     print(f"Sentiment for {stock}: {sentiment_score}")

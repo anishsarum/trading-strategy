@@ -2,32 +2,55 @@ import pandas as pd
 from ta.trend import MACD, SMAIndicator
 
 
-def calculate_technical_indicators(data):
+def get_sma(data, window):
     """
-    Calculate technical indicators such as SMA (50 and 200) and MACD.
+    Calculate Simple Moving Average (SMA) for a given window.
 
     Parameters:
-    - data (pandas.DataFrame): Stock data (including 'Close' prices).
+    - data (pandas.Series): Closing prices.
+    - window (int): Window size for SMA.
 
     Returns:
-    - pandas.DataFrame: Calculated technical indicators (SMA, MACD).
+    - pandas.Series: SMA values.
     """
-    # Ensure that 'Close' is a 1-dimensional series (not a DataFrame or ndarray)
-    close_prices = data[
-        "Close"
-    ].squeeze()  # This ensures a 1D Series, even if it's a DataFrame with one column
+    return SMAIndicator(data, window=window).sma_indicator()
 
-    # Calculate SMA (Simple Moving Average)
-    sma_50 = SMAIndicator(close_prices, window=50).sma_indicator()
-    sma_200 = SMAIndicator(close_prices, window=200).sma_indicator()
 
-    # Calculate MACD (Moving Average Convergence Divergence)
-    macd = MACD(close_prices).macd()
-    macd_signal = MACD(close_prices).macd_signal()
+def get_macd(data):
+    """
+    Calculate MACD and MACD Signal Line.
 
-    # Combine results into a DataFrame
-    indicators = pd.DataFrame(
-        {"SMA_50": sma_50, "SMA_200": sma_200, "MACD": macd, "MACD_Signal": macd_signal}
+    Parameters:
+    - data (pandas.Series): Closing prices.
+
+    Returns:
+    - tuple: (macd, macd_signal) as pandas.Series
+    """
+    macd_indicator = MACD(data)
+    return macd_indicator.macd(), macd_indicator.macd_signal()
+
+
+def calculate_technical_indicators(data):
+    """
+    Calculate technical indicators: SMA(1), SMA(10), MACD, MACD Signal.
+
+    Parameters:
+    - data (pandas.DataFrame): Stock data with a 'close' column.
+
+    Returns:
+    - pandas.DataFrame: DataFrame containing all indicators.
+    """
+    close_prices = data["close"].squeeze()
+
+    sma_1 = get_sma(close_prices, window=1)
+    sma_10 = get_sma(close_prices, window=10)
+    macd, macd_signal = get_macd(close_prices)
+
+    return pd.DataFrame(
+        {
+            "SMA_1": sma_1,
+            "SMA_10": sma_10,
+            "MACD": macd,
+            "MACD_Signal": macd_signal,
+        }
     )
-
-    return indicators
